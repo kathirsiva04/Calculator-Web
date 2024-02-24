@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">Calculator</div>
+        <input type="text" class="display">
+        <div class="buttons">
+            <button class="oper" data-val="AC">AC</button>
+            <button class="oper" data-val="DEL">DEL</button>
+            <button class="oper" data-val="%">%</button>
+            <button class="oper" data-val="/">/</button>
+            <button data-val="7">7</button>
+            <button data-val="8">8</button>
+            <button data-val="9">9</button>
+            <button class="oper" data-val="*">*</button>
+            <button data-val="4">4</button>
+            <button data-val="5">5</button>
+            <button data-val="6">6</button>
+            <button class="oper" data-val="-">-</button>
+            <button data-val="1">1</button>
+            <button data-val="2">2</button>
+            <button data-val="3">3</button>
+            <button class="oper" data-val="+">+</button>
+            <button data-val="0">0</button>
+            <button data-val="00">00</button>
+            <button data-val=".">.</button>
+            <button class="oper" data-val="=">=</button>
+        </div>
+    </div>
+    <script>
+        const display = document.querySelector(".display");
+        const buttons = document.querySelectorAll("button");
+        const operators = ["%", "-", "+", "*", "/", "="];
+        let op = "";
+    
+        const calculate = (btnVal) => {
+    if (btnVal === "=") {
+        if (op !== "") {
+            op = eval(op.replace("/%/g", "/100"));
+            display.value = op;
+        }
+    } else if (btnVal === "AC") {
+        op = "";
+        display.value = "";
+    } else if (btnVal === "DEL") {
+        op = op.toString().slice(0, -1);
+        display.value = op;
+    } else if (operators.includes(btnVal)) {
+        op += " " + btnVal + " ";
+        display.value = op;
+    } else {
+        op += btnVal;
+        display.value = op;
+    }
+};
+
+        buttons.forEach((button) => {
+            button.addEventListener("click", (e) => {
+                const btnVal = e.target.dataset.val;
+                calculate(btnVal);
+            });
+        });
+    </script>
+    
+</body>
+</html>
